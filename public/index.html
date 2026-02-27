@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morning Star Polytechnic College</title>
+<link rel="stylesheet" href="css/chatbot.css">
+<style>
+
+/* ================= GLOBAL ================= */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI',sans-serif;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:#f4f6fb;
+}
+
+/* ================= HEADER ================= */
+
+.main-header{
+  background:white;
+  padding:15px 40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:3px solid #004aad;
+  transition:0.3s;
+}
+
+.main-header.scrolled{
+  padding:8px 40px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+.left-section{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.college-logo{
+  width:70px;
+}
+
+.logo-text h1{
+  color:#004aad;
+  font-size:22px;
+}
+
+.logo-text h2{
+  color:#004aad;
+  font-size:14px;
+}
+
+.center-section{
+  text-align:center;
+  color:#004aad;
+  font-size:13px;
+}
+
+.right-section{
+  text-align:right;
+  color:#004aad;
+  font-size:13px;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar{
+  background:#1a4fb4;
+  padding:12px 40px;
+  position:sticky;
+  top:0;
+  z-index:999;
+}
+
+.nav-links{
+  display:flex;
+  justify-content:center;
+  gap:30px;
+}
+
+.nav-links a{
+  color:white;
+  text-decoration:none;
+  font-weight:500;
+}
+
+.nav-links a:hover{
+  color:#ffcc00;
+}
+
+.menu-toggle{
+  display:none;
+  font-size:26px;
+  color:white;
+  cursor:pointer;
+  position:absolute;
+  right:20px;
+  top:8px;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+  height:85vh;
+  background:url("img/college.jpeg") center/cover no-repeat;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  color:white;
+  position:relative;
+}
+
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.55);
+}
+
+.hero-content{
+  position:relative;
+}
+
+.hero h1{
+  font-size:45px;
+}
+
+.hero p{
+  margin-top:10px;
+}
+
+/* ================= SECTION ================= */
+
+.section{
+  padding:70px 40px;
+}
+
+.section-title{
+  text-align:center;
+  color:#004aad;
+  margin-bottom:40px;
+  font-size:26px;
+}
+
+/* ================= FADE ANIMATION ================= */
+
+.fade-in{
+  opacity:0;
+  transform:translateY(40px);
+  transition:0.8s ease;
+}
+
+.fade-in.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* ================= COURSES ================= */
+
+/* ================= COURSES ================= */
+
+.course-container{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:25px;
+}
+
+.course-card{
+    background:white;
+    width:280px;
+    border-radius:15px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.08);
+    overflow:hidden;
+    transition:0.4s ease;
+    cursor:pointer;
+}
+
+.course-title{
+    padding:20px;
+    text-align:center;
+    font-weight:600;
+    color:#004aad;
+    font-size:16px;
+}
+
+/* Hidden Details */
+.course-details{
+    max-height:0;
+    overflow:hidden;
+    transition:0.5s ease;
+    padding:0 20px;
+    text-align:center;
+}
+
+/* Image */
+.course-details img{
+    width:100%;
+    height:160px;
+    object-fit:cover;
+    border-radius:10px;
+    margin:10px 0;
+}
+
+/* Description */
+.course-details p{
+    font-size:14px;
+    color:#444;
+    padding-bottom:15px;
+}
+
+/* Hover Expand Effect */
+.course-card:hover{
+    transform:translateY(-8px);
+}
+
+.course-card:hover .course-details{
+    max-height:400px;
+    padding:0 20px 20px;
+}
+
+
+/* ================= GALLERY ================= */
+
+.gallery{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:20px;
+}
+
+.gallery img{
+  width:280px;
+  height:200px;
+  object-fit:cover;
+  border-radius:12px;
+  cursor:pointer;
+}
+
+/* ================= LIGHTBOX ================= */
+
+.lightbox{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.9);
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+
+.lightbox img{
+  max-width:90%;
+  max-height:90%;
+  border-radius:10px;
+}
+/* ================= CONTACT SECTION ================= */
+
+#contact {
+    padding: 60px 40px;
+    background: #f4f6fb;
+}
+
+/* Section Title */
+#contact h2 {
+    text-align: center;
+    color: #004aad;
+    margin-bottom: 40px;
+    font-size: 28px;
+}
+
+/* Layout Container */
+.contact-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
+}
+
+/* ================= LEFT SIDE (INFO + MAP) ================= */
+
+.contact-info {
+    background: #1a4fb4;
+    color: white;
+    padding: 25px;
+    border-radius: 15px;
+    width: 450px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.contact-info h3 {
+    margin-bottom: 15px;
+}
+
+.contact-info p {
+    margin: 8px 0;
+}
+
+/* Google Map */
+.contact-info iframe {
+    width: 100%;
+    height: 220px;
+    border-radius: 10px;
+    margin-top: 15px;
+    border: none;
+}
+
+/* ================= RIGHT SIDE (FORM) ================= */
+
+.contact-form {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    width: 450px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.contact-form h3 {
+    margin-bottom: 20px;
+    color: #004aad;
+}
+
+/* Input Fields */
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+/* Focus Effect */
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: #1a4fb4;
+    outline: none;
+    box-shadow: 0 0 5px rgba(26,79,180,0.3);
+}
+
+/* Button */
+.contact-form button {
+    width: 100%;
+    padding: 12px;
+    background: #1a4fb4;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.contact-form button:hover {
+    background: #003b99;
+    transform: translateY(-2px);
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 768px) {
+    .contact-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .contact-info,
+    .contact-form {
+        width: 100%;
+    }
+}
+
+
+/* ================= FOOTER ================= */
+
+.footer{
+  background:#0f2f6e;
+  color:white;
+  padding:50px 40px;
+}
+
+.footer-container{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-between;
+  gap:40px;
+}
+
+.footer h3{
+  margin-bottom:15px;
+}
+
+.footer a{
+  display:block;
+  color:white;
+  text-decoration:none;
+  margin:8px 0;
+  opacity:0.85;
+}
+
+.footer a:hover{
+  opacity:1;
+}
+
+.copyright{
+  text-align:center;
+  margin-top:30px;
+  opacity:0.8;
+}
+/* ================= FACILITIES SECTION ================= */
+
+#facilities{
+    padding: 70px 40px;
+    background: #f4f6fb;
+}
+
+#facilities h2{
+    text-align: center;
+    color: #004aad;
+    margin-bottom: 50px;
+    font-size: 28px;
+}
+
+/* Cards Container */
+.cards{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+/* About Section */
+.about-section{
+  padding:60px 20px;
+  text-align:center;
+}
+
+.section-title{
+  font-size:32px;
+  color:#0a4da2;
+  margin-bottom:40px;
+}
+
+/* Container */
+.about-container{
+  display:flex;
+  justify-content:center;
+}
+/* Section */
+.about-section{
+  padding:70px 20px;
+  text-align:center;
+}
+
+.section-title{
+  font-size:32px;
+  color:#0a4da2;
+  margin-bottom:40px;
+}
+
+/* Card */
+.about-card{
+  width:800px;              /* Increased width */
+  margin:auto;
+  background:#ffffff;
+  border-radius:20px;
+  padding:40px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+  transition:0.4s ease;
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+}
+
+.about-card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 20px 40px rgba(0,0,0,0.15);
+}
+
+/* Short Content */
+.about-short h3{
+  color:#0a4da2;
+  margin-bottom:15px;
+}
+
+.about-short p{
+  color:#444;
+  font-size:16px;
+}
+
+.hover-text{
+  display:block;
+  margin-top:15px;
+  font-size:14px;
+  color:#0a4da2;
+  font-weight:bold;
+}
+
+/* Hidden Full Content */
+.about-full{
+  max-height:0;
+  overflow:hidden;
+  transition:0.6s ease;
+  text-align:left;
+  margin-top:20px;
+  color:#333;
+  font-size:15px;
+  line-height:1.7;
+}
+
+/* Expand on Hover */
+.about-card:hover .about-full{
+  max-height:1000px;
+}
+
+/* Responsive */
+@media(max-width:900px){
+  .about-card{
+    width:95%;
+  }
+}
+
+/* Card */
+.about-card{
+  width:600px;   /* Increased Width */
+  background:#ffffff;
+  border-radius:15px;
+  padding:30px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+  transition:0.4s ease;
+  position:relative;
+  overflow:hidden;
+  cursor:pointer;
+}
+
+.about-card h3{
+  color:#0a4da2;
+  margin-bottom:10px;
+}
+
+.short-text{
+  font-size:16px;
+  color:#444;
+}
+
+/* Hidden Full Text */
+.full-text{
+  max-height:0;
+  overflow:hidden;
+  transition:0.5s ease;
+  color:#333;
+  font-size:15px;
+  margin-top:15px;
+}
+
+/* Hover Effect */
+.about-card:hover{
+  transform:translateY(-10px);
+  box-shadow:0 15px 35px rgba(0,0,0,0.15);
+}
+
+.about-card:hover .full-text{
+  max-height:300px;
+}
+
+/* Responsive */
+@media(max-width:768px){
+  .about-card{
+    width:90%;
+  }
+}
+
+
+/* Individual Card */
+.card{
+    background: white;
+    width: 250px;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+/* Hover Effect */
+.card:hover{
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+    background: #1a4fb4;
+    color: white;
+}
+
+/* Responsive */
+@media(max-width:768px){
+    .cards{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card{
+        width: 90%;
+    }
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:768px){
+
+  .main-header{
+    padding:12px 15px;
+  }
+
+  .college-logo{
+    width:55px;
+  }
+
+  .navbar{
+    padding:12px 15px;
+  }
+
+  .menu-toggle{
+    display:block;
+  }
+
+  .nav-links{
+    display:none;
+    flex-direction:column;
+    gap:15px;
+    text-align:center;
+    padding-top:15px;
+  }
+
+  .nav-links.active{
+    display:flex;
+  }
+
+  .hero h1{
+    font-size:28px;
+  }
+
+  .footer-container{
+    flex-direction:column;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div id="home" class="main-header">
+  <div class="left-section">
+    <img src="img/logo.png" class="college-logo">
+    <div class="logo-text">
+      <h1>Morning Star</h1>
+      <h2>Polytechnic College</h2>
+    </div>
+  </div>
+
+  <div class="center-section">
+    Approved by AICTE<br>
+    Affiliated to DOTE, TN<br>
+    Run by R.C. Diocese of Kuzhithurai
+  </div>
+
+  <div class="right-section">
+    📞 9489909662<br>
+    ✉ 356msptc@gmail.com
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+
+  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+  <div class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#courses">Courses</a>
+    <a href="#facilities">Facilities</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#cse-gallery">CSE Gallery</a>
+
+    <a href="#contact">Contact</a>
+  </div>
+
+</nav>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-content">
+    <h1>Empowering Students For A Bright Future</h1>
+    <p>Excellence in Technical Education Since 1984</p>
+  </div>
+</div>
+
+<!-- COURSES -->
+<section id="courses" class="section fade-in">
+  <h2 class="section-title">Courses Offered</h2>
+
+  <div class="course-container">
+
+    <div class="course-card">
+      <div class="course-title">Computer Engineering</div>
+
+      <div class="course-details">
+        <img src="img/cse.png" alt="CSE">
+        <p>Focuses on programming, AI, Web Development, and Software Engineering.</p>
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="course-title">Civil Engineering</div>
+
+      <div class="course-details">
+        <img src="img/civil.webp" alt="Civil">
+        <p>Deals with construction, structural design, and infrastructure projects.</p>
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="course-title">Mechanical Engineering</div>
+
+      <div class="course-details">
+        <img src="img/mech.jpg" alt="Mech">
+        <p>Studies machines, manufacturing, thermal systems and robotics.</p>
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="course-title">Electrical & Electronics Engineering</div>
+
+      <div class="course-details">
+        <img src="img/eee.jpg" alt="EEE">
+        <p>Focuses on power systems, circuits, and electrical machines.</p>
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="course-title">Electronics & Communication Engineering</div>
+
+      <div class="course-details">
+        <img src="img/ece.jpg" alt="ECE">
+        <p>Deals with communication systems, embedded systems, and networking.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FACILITIES -->
+<section id="facilities" class="section">
+  <h2>Facilities</h2>
+  <div class="cards">
+    <div class="card">Modern Laboratories</div>
+    <div class="card">Digital Library</div>
+    <div class="card">WiFi Campus</div>
+    <div class="card">Sports & Cultural Activities</div>
+  </div>
+</section>
+<!-- MAIN GALLERY -->
+<section id="gallery" class="section fade-in">
+  <h2 class="section-title">College Gallery</h2>
+  <div class="gallery">
+    <img src="img/cl1.png">
+    <img src="img/cl2.png">
+    <img src="img/cl3.png">
+  </div>
+</section>
+
+<!-- CSE GALLERY -->
+<section id="cse-gallery" class="section fade-in">
+  <h2 class="section-title">CSE Department Gallery</h2>
+  <div class="gallery">
+    <img src="img/tourimg.jpeg">
+    <img src="img/group8.jpeg">
+    <img src="img/group7.jpeg">
+    <img src="img/group6.jpeg">
+    <img src="img/group5.jpeg">
+    <img src="img/group3.jpeg">
+  </div>
+</section>
+
+<section id="about" class="about-section">
+  <h2 class="section-title">About Us</h2>
+
+  <div class="about-card">
+    <div class="about-short">
+      <h3>Morning Star Ploytechnic College</h3>
+      <p>
+        Established in 1984 with a vision to provide quality technical education.
+      </p>
+      <span class="hover-text">Hover to Read Full Details</span>
+    </div>
+
+    <div class="about-full">
+      <p>
+        In keeping pace with the sweeping technological advancements, the necessity to provide technical education to the youth of this region, the Roman Catholic Diocese of Kottar in Kanyakumari district established this polytechnic college in August 1984.
+      </p>
+
+      <p>
+        This polytechnic college was granted recognition by the Government of Tamil Nadu as a co-educational institution with a total intake of 180 seats vide G.O. 763 EST/84 dated 13.6.1984, offering branches such as Civil, Mechanical and Electronics & Communication.
+      </p>
+
+      <p>
+        Additional branches including Computer Engineering, Information Technology, and Electrical & Electronics Engineering were introduced in subsequent years. The annual intake was increased to 390 in 2005-06.
+      </p>
+
+      <p>
+        True to the motto ‘Towards Fullness of Life’, the management has ensured full-fledged infrastructural facilities as per the stipulations of the Government of Tamil Nadu and AICTE.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+
+  <h2 class="section-title">Contact Us</h2>
+
+  <div class="contact-wrapper">
+
+    <!-- ================= LEFT SIDE - INFO ================= -->
+    <div class="contact-info">
+      <h3>College Information</h3>
+
+      <p><strong>Address:</strong> Chunkankadai, Nagercoil – 629003</p>
+      <p><strong>Phone:</strong> 9489909662</p>
+      <p><strong>Email:</strong> 356msptc@gmail.com</p>
+      <p><strong>Office Hours:</strong> Mon – Fri (9:00 AM – 4:30 PM)</p>
+
+      <!-- Google Map -->
+      <iframe 
+        src="https://www.google.com/maps?q=Chunkankadai,Nagercoil&output=embed">
+      </iframe>
+    </div>
+
+
+    <!-- ================= RIGHT SIDE - FORM ================= -->
+    <div class="contact-form">
+      <h3>Send Us a Message</h3>
+
+      <!-- IMPORTANT: ID must match JS -->
+      <form id="contactForm">
+
+        <input type="text" id="name" placeholder="Your Name" required>
+
+        <input type="email" id="email" placeholder="Your Email" required>
+
+        <input type="text" id="subject" placeholder="Subject" required>
+
+        <textarea id="message" rows="5" placeholder="Your Message" required></textarea>
+
+        <button type="submit">Send Message</button>
+
+      </form>
+
+      <!-- Response Message -->
+      <p id="formResponse" style="margin-top:10px; font-weight:500;"></p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-container">
+    <div>
+      <h3>Morning Star Polytechnic College</h3>
+      <p>Excellence in Technical Education</p>
+    </div>
+
+    <div>
+      <h3>Quick Links</h3>
+      <a href="#courses">Courses</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#contact">Contact</a>
+    </div>
+
+    <div>
+      <h3>Office Hours</h3>
+      <p>Mon – Fri: 9:00 AM – 4:30 PM</p>
+    </div>
+  </div>
+  <p class="copyright">© 2026 Morning Star Polytechnic College</p>
+</footer>
+<!-- Chatbot Floating Button -->
+<div id="chatbot-circle">
+    💬
+</div>
+
+<!-- Chatbot Main Box -->
+<div id="chatbot-box" class="chatbot-container">
+
+    <!-- Header -->
+    <div class="chat-header">
+        <span>BAT AI 🤖</span>
+        <button id="close-chat">✖</button>
+    </div>
+
+    <!-- Messages Area -->
+    <div id="chat-messages" class="chat-messages">
+        <div class="bot-message">
+            👋 Welcome! I am <b>BAT AI</b>.<br><br>
+            I Can Help With :<br>
+            • HOD Details<br>
+            • Leave Rules<br>
+            • Placement<br>
+            • Attendance<br>
+            • Fees<br>
+            • Committee<br><br>
+            Or enter your Register Number.
+        </div>
+    </div>
+
+    <!-- Input Area -->
+    <div class="chat-input">
+        <input type="text" id="user-input" placeholder="Type your question..." />
+        <button id="send-btn">Send</button>
+    </div>
+
+</div>
+
+<!-- Connect Your Existing JS -->
+<script src="js/chatbot.js"></script>
+<!-- LIGHTBOX -->
+<div class="lightbox" onclick="closeLightbox()">
+  <img id="lightbox-img">
+</div>
+
+<script>
+
+/* Sticky Header */
+window.addEventListener("scroll", function(){
+  document.querySelector(".main-header")
+  .classList.toggle("scrolled", window.scrollY > 50);
+});
+
+/* Fade-in */
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("show");
+    }
+  });
+});
+document.querySelectorAll(".fade-in").forEach(el=>observer.observe(el));
+
+/* Hamburger */
+function toggleMenu(){
+  document.querySelector(".nav-links").classList.toggle("active");
+}
+
+/* Lightbox */
+document.querySelectorAll(".gallery img").forEach(img=>{
+  img.addEventListener("click", function(){
+    document.getElementById("lightbox-img").src=this.src;
+    document.querySelector(".lightbox").style.display="flex";
+  });
+});
+
+function closeLightbox(){
+  document.querySelector(".lightbox").style.display="none";
+}
+
+</script>
+<script>
+document.getElementById("contactForm").addEventListener("submit", async function(e){
+  e.preventDefault();
+
+  const data = {
+    name: document.getElementById("name").value,
+    email: document.getElementById("email").value,
+    subject: document.getElementById("subject").value,
+    message: document.getElementById("message").value
+  };
+
+  const response = await fetch("/send-mail", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+
+  const result = await response.json();
+  document.getElementById("formResponse").innerText = result.message;
+
+  document.getElementById("contactForm").reset();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Admin Panel</title>
+<style>
+body{
+  font-family:Segoe UI;
+  background:#0d4ea6;
+  padding:30px;
+}
+.container{
+  background:#fff;
+  padding:30px;
+  border-radius:15px;
+  max-width:800px;
+  margin:auto;
+}
+input{
+  width:100%;
+  padding:10px;
+  margin:8px 0;
+}
+button{
+  padding:8px 15px;
+  margin-top:10px;
+  cursor:pointer;
+}
+table{
+  width:100%;
+  margin-top:20px;
+  border-collapse:collapse;
+}
+td,th{
+  border:1px solid #ddd;
+  padding:8px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h2>Add / Edit Student</h2>
+
+<!-- SEARCH SECTION -->
+<h3>Edit Existing Student</h3>
+<input type="text" id="searchRegNo" placeholder="Enter Register Number">
+<button onclick="searchStudent()">Search</button>
+
+<hr>
+
+<input id="registerNo" placeholder="Register No">
+<input id="name" placeholder="Name">
+<input id="mobile" placeholder="Mobile">
+<input id="dob" placeholder="DOB">
+<input id="department" placeholder="Department">
+<input id="semester" placeholder="Semester">
+<input id="attendance" placeholder="Attendance %">
+<input id="internal" placeholder="Internal Marks">
+<input id="marks" placeholder="External Marks">
+<input id="password" placeholder="Password">
+
+<button onclick="addStudent()">Save Student</button>
+
+<h3>Student List</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Reg No</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="studentTable"></tbody>
+</table>
+
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Student Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body{
+margin:0;
+font-family:Segoe UI;
+background:linear-gradient(135deg,#004aad,#00c6ff);
+}
+
+.dashboard{
+width:900px;
+margin:40px auto;
+background:white;
+padding:30px;
+border-radius:20px;
+box-shadow:0 20px 50px rgba(0,0,0,0.3);
+}
+
+h2{
+color:#004aad;
+}
+
+table{
+width:100%;
+margin-top:20px;
+border-collapse:collapse;
+}
+
+th,td{
+border-bottom:1px solid #ddd;
+padding:10px;
+text-align:center;
+}
+
+th{
+background:#004aad;
+color:white;
+}
+
+.summary{
+margin-top:20px;
+font-weight:bold;
+font-size:18px;
+}
+
+/* ===== SMALL ATTENDANCE CHART ===== */
+.chart-container{
+width:180px;
+height:180px;
+margin:30px auto;
+}
+
+canvas{
+width:100% !important;
+height:100% !important;
+}
+
+.logout{
+margin-top:20px;
+padding:10px 20px;
+background:red;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<h2>🎓 Student Dashboard</h2>
+
+<div id="info"></div>
+
+<h3>Subject Marks</h3>
+
+<table>
+<thead>
+<tr>
+<th>Subject</th>
+<th>Internal</th>
+<th>External</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody id="subjectTable"></tbody>
+</table>
+
+<div class="summary" id="summary"></div>
+
+<!-- SMALL CHART -->
+<div class="chart-container">
+<canvas id="attendanceChart"></canvas>
+</div>
+
+<button class="logout" onclick="logout()">Logout</button>
+
+</div>
+
+<script>
+
+// ================= AUTH CHECK =================
+const storedStudent = localStorage.getItem("student");
+
+if (!storedStudent) {
+  window.location.replace("/student-login.html");
+  throw new Error("No student in localStorage");
+}
+
+const student = JSON.parse(storedStudent);
+
+// ================= SHOW BASIC INFO =================
+document.getElementById("info").innerHTML = `
+<b>Name:</b> ${student.name} <br>
+<b>Register No:</b> ${student.registerNo} <br>
+<b>Department:</b> ${student.department} <br>
+<b>Semester:</b> ${student.semester} <br>
+<b>Attendance:</b> ${student.attendance}%
+`;
+
+// ================= SUBJECT TABLE =================
+let totalMarks = 0;
+let maxMarks = 0;
+let tableHTML = "";
+
+if (student.subjects && student.subjects.length > 0) {
+
+  student.subjects.forEach(sub => {
+
+    let internal = Number(sub.internal || 0);
+    let external = Number(sub.external || 0);
+    let subTotal = internal + external;
+
+    totalMarks += subTotal;
+    maxMarks += 200;
+
+    tableHTML += `
+    <tr>
+      <td>${sub.subject}</td>
+      <td>${internal}</td>
+      <td>${external}</td>
+      <td>${subTotal}</td>
+    </tr>
+    `;
+  });
+
+} else {
+  tableHTML = `<tr><td colspan="4">No Subjects Found</td></tr>`;
+}
+
+document.getElementById("subjectTable").innerHTML = tableHTML;
+
+// ================= CALCULATE PERCENTAGE =================
+let percentage = maxMarks > 0 ? (totalMarks / maxMarks) * 100 : 0;
+
+let grade = "";
+
+if (percentage >= 90) grade = "A+";
+else if (percentage >= 80) grade = "A";
+else if (percentage >= 70) grade = "B";
+else if (percentage >= 60) grade = "C";
+else if (percentage >= 50) grade = "D";
+else grade = "F";
+
+document.getElementById("summary").innerHTML = `
+Total Marks: ${totalMarks} <br>
+Percentage: ${percentage.toFixed(2)}% <br>
+Grade: ${grade}
+`;
+
+// ================= SMALL ATTENDANCE CHART =================
+new Chart(document.getElementById("attendanceChart"), {
+  type: 'doughnut',
+  data: {
+    labels: ['Present', 'Absent'],
+    datasets: [{
+      data: [student.attendance || 0, 100 - (student.attendance || 0)],
+      backgroundColor: ['#0077ff', '#e0e0e0']
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'bottom'
+      }
+    }
+  }
+});
+
+// ================= LOGOUT =================
+function logout() {
+  localStorage.removeItem("student");
+  window.location.replace("/student-login.html");
+}
+
+</script>
+
+</body>
+</html>
