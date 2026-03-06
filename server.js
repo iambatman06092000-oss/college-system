@@ -149,45 +149,16 @@ app.delete("/api/admin/delete/:id", async (req,res)=>{
   }
 });
 
+
 // ================= GET ALL STUDENTS =================
-async function searchStudent(){
-
-  const reg = document.getElementById("searchRegNo").value.trim();
-
-  if(!reg){
-    alert("Enter Register Number");
-    return;
+app.get("/api/student-list", async (req,res)=>{
+  try {
+    const students = await Student.find().sort({ createdAt: -1 });
+    res.json(students);
+  } catch(error){
+    res.status(500).json({message:error.message});
   }
-
-  try{
-
-    const res = await fetch("/api/student/reg/"+reg);
-
-    if(!res.ok){
-      alert("Student not found");
-      return;
-    }
-
-    const s = await res.json();
-
-    document.getElementById("registerNo").value = s.registerNo;
-    document.getElementById("name").value = s.name;
-    document.getElementById("mobile").value = s.mobile;
-    document.getElementById("dob").value = s.dob;
-    document.getElementById("department").value = s.department;
-    document.getElementById("semester").value = s.semester;
-    document.getElementById("attendance").value = s.attendance;
-    document.getElementById("internal").value = s.internal;
-    document.getElementById("marks").value = s.marks;
-
-    currentId = s._id;
-
-    alert("Student Loaded Successfully");
-
-  }catch(err){
-    alert("Server error");
-  }
-}
+});
 
 
 // ================= GET STUDENT BY ID =================
