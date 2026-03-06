@@ -3,40 +3,51 @@ let currentId = null;
 // ================= ADD OR UPDATE =================
 async function addStudent(){
 
-const student={
-registerNo: registerNo.value,
-name: name.value,
-mobile: mobile.value,
-dob: dob.value,
-department: department.value,
-semester: semester.value,
-attendance: attendance.value,
-internal: internal.value,
-marks: marks.value,
-password: password.value
+const student = {
+  registerNo: registerNo.value.trim().toUpperCase(),
+  name: name.value.trim(),
+  mobile: mobile.value.trim(),
+  dob: dob.value,
+  department: department.value,
+  semester: Number(semester.value) || 0,
+  attendance: Number(attendance.value) || 0,
+  internal: Number(internal.value) || 0,
+  marks: Number(marks.value) || 0,
+  password: password.value
 };
+if(!student.password){
+  alert("Password is required");
+  return;
+}
+
+let response;
 
 if(currentId){
 
-  await fetch("/api/admin/update/"+currentId,{
+  response = await fetch("/api/admin/update/"+currentId,{
     method:"PUT",
     headers:{ "Content-Type":"application/json" },
     body: JSON.stringify(student)
   });
 
-  alert("Student Updated Successfully");
-  currentId=null;
-
 }else{
 
-  await fetch("/api/admin/add-student",{
+  response = await fetch("/api/admin/add-student",{
     method:"POST",
     headers:{ "Content-Type":"application/json" },
     body: JSON.stringify(student)
   });
 
-  alert("Student Added Successfully");
 }
+
+const data = await response.json();
+
+if(!response.ok){
+  alert(data.message);
+  return;
+}
+
+alert(data.message);
 
 clearForm();
 loadStudents();
