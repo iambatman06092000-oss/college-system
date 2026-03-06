@@ -1,6 +1,4 @@
 import nodemailer from "nodemailer";
-
-
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -39,6 +37,10 @@ const studentSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 const Student = mongoose.model("Student", studentSchema);
+
+
+
+// ================= CONTACT MAIL =================
 app.post("/send-mail", async (req, res) => {
   try {
     const { name, email, subject, message } = req.body;
@@ -46,17 +48,17 @@ app.post("/send-mail", async (req, res) => {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "iambatman06092000@gmail.com",   // Your Gmail
-        pass: "sync innu pudo mopj"     // Paste 16-digit app password here
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
       }
     });
 
     await transporter.sendMail({
       from: email,
-      to: "iambatman06092000@gmail.com",
+      to: process.env.EMAIL_USER,
       subject: `Contact Form: ${subject}`,
       html: `
-        <h2>New Message from Website</h2>
+        <h2>New Message</h2>
         <p><b>Name:</b> ${name}</p>
         <p><b>Email:</b> ${email}</p>
         <p><b>Message:</b><br>${message}</p>
@@ -70,6 +72,8 @@ app.post("/send-mail", async (req, res) => {
     res.status(500).json({ message: "Error sending mail" });
   }
 });
+
+
 
 // ================= LOGIN =================
 app.post("/api/login", async (req,res)=>{
@@ -89,6 +93,8 @@ app.post("/api/login", async (req,res)=>{
   }
 });
 
+
+
 // ================= ADD STUDENT =================
 app.post("/api/admin/add-student", async (req,res)=>{
   try {
@@ -101,15 +107,7 @@ app.post("/api/admin/add-student", async (req,res)=>{
     const hashedPassword = await bcrypt.hash(req.body.password,10);
 
     const student = new Student({
-      registerNo: req.body.registerNo,
-      name: req.body.name,
-      mobile: req.body.mobile,
-      dob: req.body.dob,
-      department: req.body.department,
-      semester: req.body.semester,
-      attendance: req.body.attendance,
-      internal: req.body.internal,
-      marks: req.body.marks,
+      ...req.body,
       password: hashedPassword
     });
 
@@ -120,6 +118,8 @@ app.post("/api/admin/add-student", async (req,res)=>{
     res.status(500).json({message:error.message});
   }
 });
+
+
 
 // ================= UPDATE STUDENT =================
 app.put("/api/admin/update/:id", async (req,res)=>{
@@ -139,6 +139,8 @@ app.put("/api/admin/update/:id", async (req,res)=>{
   }
 });
 
+
+
 // ================= DELETE STUDENT =================
 app.delete("/api/admin/delete/:id", async (req,res)=>{
   try {
@@ -148,6 +150,7 @@ app.delete("/api/admin/delete/:id", async (req,res)=>{
     res.status(500).json({message:error.message});
   }
 });
+
 
 
 // ================= GET ALL STUDENTS =================
@@ -161,6 +164,7 @@ app.get("/api/student-list", async (req,res)=>{
 });
 
 
+
 // ================= GET STUDENT BY ID =================
 app.get("/api/student/:id", async (req,res)=>{
   try {
@@ -172,13 +176,13 @@ app.get("/api/student/:id", async (req,res)=>{
   }
 });
 
+
+
 // ================= GET STUDENT BY REGISTER NO =================
 app.get("/api/student/reg/:regNo", async (req,res)=>{
   try {
-    const reg = req.params.regNo.trim();
-
     const student = await Student.findOne({
-      registerNo: { $regex: new RegExp("^" + reg + "$", "i") }
+      registerNo: req.params.regNo
     });
 
     if(!student) return res.status(404).json({message:"Not found"});
@@ -190,10 +194,20 @@ app.get("/api/student/reg/:regNo", async (req,res)=>{
 });
 
 
+
 // ================= SERVE FRONTEND =================
 app.use(express.static(path.join(__dirname,"public")));
 
+
+
+// ================= FALLBACK ROUTE =================
+app.get("*", (req,res)=>{
+  res.sendFile(path.join(__dirname,"public","index.html"));
+});
+
+
+
 // ================= START SERVER =================
 app.listen(process.env.PORT || 3000, () => {
-  console.log("Server running");
+  console.log("🚀 Server running");
 });
