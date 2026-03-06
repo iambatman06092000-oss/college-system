@@ -10,7 +10,6 @@ async function login() {
   }
 
   try {
-
     const res = await fetch("/api/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -20,15 +19,8 @@ async function login() {
     const data = await res.json();
 
     if (data.student) {
-
-      // Store full student object
       localStorage.setItem("student", JSON.stringify(data.student));
-
-      console.log("Student Stored:", localStorage.getItem("student"));
-
-      // Redirect safely
       window.location.replace("/student-dashboard.html");
-
     } else {
       errorBox.innerText = data.message || "Login failed";
     }
